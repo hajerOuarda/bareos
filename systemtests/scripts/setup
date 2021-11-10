@@ -13,6 +13,9 @@ print_debug "creating database \"${db_name}\" (${DBTYPE})"
 "${scripts}/make_bareos_tables" "${DBTYPE}" >/dev/null 2>&1
 "${scripts}/grant_bareos_privileges" "${DBTYPE}" >/dev/null 2>&1
 
+# Fill ${BackupDirectory} with data.
+setup_data
+
 if lsof="$(command -v lsof)"; then
   for port in $BASEPORT $BAREOS_DIRECTOR_PORT $BAREOS_STORAGE_PORT \
     $BAREOS_STORAGE2_PORT $BAREOS_FD_PORT $MINIO_PORT; do
